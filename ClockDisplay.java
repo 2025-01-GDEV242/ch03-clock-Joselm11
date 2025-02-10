@@ -1,9 +1,13 @@
 
 /**
+ * 24 HOUR INTERNAL
+ * 
  * The ClockDisplay class implements a digital clock display for a
  * European-style 24 hour clock. The clock shows hours and minutes. The 
  * range of the clock is 00:00 (midnight) to 23:59 (one minute before 
  * midnight).
+ * 
+ * 24 hour clock will be converted to US AM and PM.
  * 
  * The clock display receives "ticks" (via the timeTick method) every minute
  * and reacts by incrementing the display. This is done in the usual clock
@@ -16,6 +20,7 @@ public class ClockDisplay
 {
     private NumberDisplay hours;
     private NumberDisplay minutes;
+    private String period;
     private String displayString;    // simulates the actual display
     
     /**
@@ -26,6 +31,7 @@ public class ClockDisplay
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
+        period = "";
         updateDisplay();
     }
 
@@ -34,10 +40,11 @@ public class ClockDisplay
      * creates a new clock set at the time specified by the 
      * parameters.
      */
-    public ClockDisplay(int hour, int minute)
+    public ClockDisplay(int hour, int minute, String timePeriod)
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
+        period = timePeriod;
         setTime(hour, minute);
     }
 
@@ -50,7 +57,14 @@ public class ClockDisplay
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
-        }
+            if (hours.getValue() == 12){
+                    period = "PM";
+                }
+
+            else if(hours.getValue() == 24) {
+                    period = "AM";
+                }
+            }
         updateDisplay();
     }
 
@@ -79,6 +93,6 @@ public class ClockDisplay
     private void updateDisplay()
     {
         displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+                        minutes.getDisplayValue() + " " + period;
     }
 }
