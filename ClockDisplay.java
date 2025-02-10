@@ -30,9 +30,10 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(13);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
-        period = "";
+        period = "AM";
+        hours.setValue(12);
         updateDisplay();
     }
 
@@ -66,12 +67,6 @@ public class ClockDisplay
                 period = "AM";
                 }
             }
-            else{
-                period = period;
-            }
-            if (hours.getValue() == 0) {
-                hours.increment();
-            }
         }
         updateDisplay();
     }
@@ -82,7 +77,13 @@ public class ClockDisplay
      */
     public void setTime(int hour, int minute)
     {
-        hours.setValue(hour);
+        if (hour ==0){
+            hours.setValue(12);
+        }
+        else{
+            hours.setValue(hour);
+        }
+        
         minutes.setValue(minute);
         updateDisplay();
     }
