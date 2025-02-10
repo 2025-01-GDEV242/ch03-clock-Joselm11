@@ -41,11 +41,11 @@ public class ClockDisplay
      * creates a new clock set at the time specified by the 
      * parameters.
      */
-    public ClockDisplay(int hour, int minute, String period)
+    public ClockDisplay(int hour, int minute, String timePeriod)
     {
         hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
-        period = "";
+        period = timePeriod;
         setTime(hour, minute);
     }
 
@@ -58,7 +58,7 @@ public class ClockDisplay
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
-            if (hours.getValue() == 12){
+            if (hours.getValue() == 0){
                 if (period == "AM") {
                 period = "PM";
                 }
