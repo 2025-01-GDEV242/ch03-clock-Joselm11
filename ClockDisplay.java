@@ -30,7 +30,7 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(12);
+        hours = new NumberDisplay(13);
         minutes = new NumberDisplay(60);
         period = "";
         updateDisplay();
@@ -43,7 +43,7 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute, String timePeriod)
     {
-        hours = new NumberDisplay(12);
+        hours = new NumberDisplay(13);
         minutes = new NumberDisplay(60);
         period = timePeriod;
         setTime(hour, minute);
@@ -58,7 +58,7 @@ public class ClockDisplay
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
-            if (hours.getValue() == 0){
+            if (hours.getValue() == 12){
                 if (period == "AM") {
                 period = "PM";
                 }
@@ -68,6 +68,9 @@ public class ClockDisplay
             }
             else{
                 period = period;
+            }
+            if (hours.getValue() == 0) {
+                hours.increment();
             }
         }
         updateDisplay();
